@@ -1,0 +1,19 @@
+[package]
+name = "safe-mmap"
+version = "0.1.0"
+edition = "2021"
+authors = ["Allison Karlitskaya <allison.karlitskaya@redhat.com>"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/allisonkarlitskaya/safe-mmap"
+categories = ["os::linux-apis"]
+keywords = ["mmap", "memfd", "fs-verity"]
+description = "Safe wrappers for mmap() of immutable files."
+
+[dependencies]
+rustix = { version = "0.38.42", default-features = false, features = ["fs", "mm", "std"] }
+thiserror = { version = "2.0.6", default-features = false, features = ["std"] }
+
+[dev-dependencies]
+rustix = { version = "0.38.42", default-features = false, features = ["param"] }
+similar-asserts = "1.6.0"
+tempfile = "3.14.0"
