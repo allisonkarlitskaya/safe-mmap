@@ -70,7 +70,7 @@ impl Drop for Mapping {
 /// exist (and continue to be immutable) for as long as any open file descriptors refer to it.
 ///
 /// There are a number of ways to obtain an immutable file descriptor:
-///   - from an fd for a fs-verity enabled file (these files can never be modified once their
+///   - from an fd for an fs-verity enabled file (these files can never be modified once their
 ///     fs-verity status is enabled)
 ///   - from an fd for a sealed memfd (which can also never be modified)
 ///   - from any fd, unsafely
@@ -136,9 +136,10 @@ impl<F: AsFd> ImmutableFd<F> {
     ///
     /// # Safety
     ///
-    /// This function is only safe if the specified byte range is not actually available in the
-    /// underlying file, you may receive a SIGBUS signal when attempting to access the memory.  It
-    /// is the responsibility of the caller to ensure that the passed range is valid.  Calling this
+    /// This function is only safe if the specified byte range is exists in the underlying file.
+    /// If the given range is not actually available in the underlying file, you may receive a
+    /// SIGBUS signal when attempting to access the memory.  It is the responsibility of the caller
+    /// to ensure that the passed range is valid, possibly by calling `fstat()`.  Calling this
     /// function on a range that doesn't exist inside of the file produces undefined behaviour.
     pub unsafe fn mmap_with_length_and_offset(
         &self,

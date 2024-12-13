@@ -30,7 +30,8 @@ of reasons for that:
    When the pages beyond the length of the file are faulted, your process will
    receive `SIGBUS`.
  - it's also possible that the mapping was made with the correct size but that
-   the file was truncated after the mapping, but before being faulted.
+   the file was truncated after the mapping, but before the data was faulted
+   in.  In this case you'll also receive `SIGBUS`.
 
 ## How?
 

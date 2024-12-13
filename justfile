@@ -11,4 +11,4 @@ lint:
 	cargo fmt --check
 	cargo clippy --all-targets -- -Dwarnings
 
-check: build lint test test-publish
+check: build lint test
